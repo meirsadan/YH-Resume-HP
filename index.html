@@ -5,32 +5,25 @@
     <meta charset="UTF-8">
     <title>title</title>
     <style type="text/css">
+        .flex-container {
+            display: flex;
+        }
     </style>
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-XXXXXXXX-Y']);
-        _gaq.push(['_trackPageview']);
-        (function () {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-        })();
-    </script>
+
 </head>
 
 <body>
-    <ul>
-        <li>item a1</li>
-        <li>item a2</li>
-        <li>item a3</li>
-    </ul>
-    <ul>
-        <li>item b1</li>
-        <li>item b2</li>
-    </ul>
+    <div class="flex-container">
+        <ul>
+            <li>item a1</li>
+            <li>item a2</li>
+            <li>item a3</li>
+        </ul>
+        <ul>
+            <li>item b1</li>
+            <li>item b2</li>
+        </ul>
+    </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js" type="text/javascript"></script>
