@@ -27,7 +27,7 @@
             <li>2007</li>
             <li>2008</li>
             <li>2009</li>
-            <li>2010</li>
+            <li data-column="studios" data-item="8">2010</li>
             <li>2011</li>
             <li>2012</li>
             <li>2013</li>
@@ -47,7 +47,7 @@
             <li>Hugo & Marie</li>
             <li>Danny Goldberg Design</li>
             <li>Adi Stern</li>
-            <li>Re-Levant</li>
+            <li data-column="clients" data-item="4,7">Re-Levant</li>
             <li>Open</li>
             <li>Maariv</li>
             <li>The League</li>
@@ -57,10 +57,10 @@
             <li>Client 02</li>
             <li>Client 03</li>
             <li>Client 04</li>
-            <li>Client 05</li>
+            <li data-column="media" data-item="8">Client 05</li>
             <li>Client 06</li>
             <li>Client 07</li>
-            <li>Client 08</li>
+            <li data-column="media" data-item="3">Client 08</li>
             <li>Client 09</li>
             <li>Client 10</li>
             <li>Client 11</li>
@@ -91,6 +91,60 @@
         </ul>
     </div>
     <p>Outro text</p>
+
+    <script type="text/javascript">
+
+        var createSVG = () => {
+            var svg = document.createElementNS( "http://www.w3.org/2000/svg", "svg" );
+            svg.setAttribute( "height", window.innerHeight );
+            svg.setAttribute( "width", window.innerWidth );
+            svg.style = "position:absolute; left:0; top:0;pointer-events:none;";
+            document.body.appendChild( svg );
+            return svg;
+        };
+
+        var svgEl = createSVG();
+
+        var drawLine = ( x1, y1, x2, y2 ) => {
+            var line = document.createElementNS( "http://www.w3.org/2000/svg", "line" );
+            line.setAttributeNS( null, 'x1', x1 );
+            line.setAttributeNS( null, 'y1', y1 );
+            line.setAttributeNS( null, 'x2', x2 );
+            line.setAttributeNS( null, 'y2', y2 );
+            line.style = "stroke:rgb(0,0,0);stroke-width:1;";
+            svgEl.appendChild( line );
+        }
+
+        var drawLineFromTo = ( from, to ) => {
+            var fromRect = from.getBoundingClientRect();
+            var toRect = to.getBoundingClientRect();
+            drawLine( fromRect.right, fromRect.top + Math.floor( from.clientHeight / 2 ), toRect.left, toRect.top + Math.floor( to.clientHeight / 2 ) );
+        }
+
+        var getListItem = ( columnId, itemNumber ) => document.getElementById( columnId ).children[ itemNumber ];
+        
+        var drawLinesForElement = ( el ) => {
+            if ( el.dataset.column ) {
+                var items = el.dataset.item.split( "," );
+                items.forEach( ( itemNumber ) => {
+                    var toElement = getListItem( el.dataset.column, itemNumber );
+                    drawLineFromTo( el,  toElement );
+                    drawLinesForElement( toElement );
+                } );
+            }
+        };
+
+        var drawLinesForColumn = ( columnId ) => Array.from( document.getElementById( columnId ).children ).forEach( ( el ) => {
+            el.addEventListener( "mouseover", ( e ) => {
+                svgEl.innerHTML = "";
+                drawLinesForElement( e.currentTarget );
+             } );
+         } );
+
+        drawLinesForColumn( "years" );
+        
+
+    </script>
 
 </body>
 
